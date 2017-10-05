@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Google Places Search</title>
+  <meta name="description" content="Searching the Google Places API">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/expandable-header.css">
+  <link rel="stylesheet" type="text/css" href="css/search-bar.css">
+  <link rel="stylesheet" type="text/css" href="css/map.css">
+</head>
+
+<body>
+  <div id="app-container">
+    <header class="expand">
+      <h1>Google Places Search</h1>
+      <div class="search-wrapper">
+        <input id="pac-input" class="search" type="text" placeholder="try '123 Main St.' or 'Pizza in NYC'" />
+        <input class="submit" id="submit-button" type="submit" value=" " />
+      </div>
+
+      <div id="slider">
+        <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
+      </div>
+    </header>
+
+    <div id="map-container">
+      <div id="map"></div>
+
+      <div id="listing">
+        <table id="resultsTable">
+          <tbody id="results"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="display:none">
+      <div id="info-content">
+        <table>
+          <tr id="iw-url-row" class="iw_table_row">
+            <td id="iw-icon" class="iw_table_icon"></td>
+            <td id="iw-url"></td>
+          </tr>
+          <tr id="iw-address-row" class="iw_table_row">
+            <td class="iw_attribute_name">Address:</td>
+            <td id="iw-address"></td>
+          </tr>
+          <tr id="iw-phone-row" class="iw_table_row">
+            <td class="iw_attribute_name">Telephone:</td>
+            <td id="iw-phone"></td>
+          </tr>
+          <tr id="iw-rating-row" class="iw_table_row">
+            <td class="iw_attribute_name">Rating:</td>
+            <td id="iw-rating"></td>
+          </tr>
+          <tr id="iw-website-row" class="iw_table_row">
+            <td class="iw_attribute_name">Website:</td>
+            <td id="iw-website"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Javascript -->
+  <script src="https://use.fontawesome.com/ea24255444.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyD2b8A0eIq8ozyVRCEpi6erTUgUUPQf5sE&libraries=places&callback=initMap" async defer></script>
+
+  <!-- Custom Javascript -->
+  <script src="js/script.js"></script>
+  <script src="js/map.js"></script>
+
+</body>
+</html>

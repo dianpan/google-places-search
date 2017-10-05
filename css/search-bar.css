@@ -1,0 +1,53 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
+
+/* placeholder text style */
+::-webkit-input-placeholder { color: #C7C7CD; } /* WebKit, Blink, Edge */
+:-moz-placeholder { color: #C7C7CD; opacity: 1; } /* Mozilla Firefox 4 to 18 */
+::-moz-placeholder { color: #C7C7CD; opacity: 1; } /* Mozilla Firefox 19+ */
+:-ms-input-placeholder { color: #C7C7CD; } /* Internet Explorer 10-11 */
+::-ms-input-placeholder { color: #C7C7CD; } /* Microsoft Edge */
+
+h1 {
+	text-shadow: 1px 1px 10px rgba(black, .5);
+  padding-bottom: 50px;
+  text-align: center;
+  color: white;
+  font-size: 2.5em;
+  line-height: 1.3em;
+  font-weight: 300;
+}
+
+input {
+	box-sizing: border-box;
+	font-size: 13px;
+	vertical-align: top;
+}
+
+.search-wrapper {
+	text-align: center;
+	position: relative;
+	height: 80px;
+	font-size: 0;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.search {
+	padding: 0 30px;
+	font-size: 18px;
+	width: 60%;
+	max-width: 400px;
+	height: 80px;
+	border: 1px solid darken(white, 30%);
+}
+
+.submit {
+	cursor: pointer;
+	border: none;
+	background: url(../img/search-icon-white-png-540.png) no-repeat center center #1E1E20;
+	background-size: 35px 35px;
+	padding: 15px 25px;
+	display: inline-block;
+	width: 150px;
+	height: 80px;
+}
