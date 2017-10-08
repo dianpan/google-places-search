@@ -1,13 +1,12 @@
 var map, places, searchBox, infoWindow
 var markers = [];
-var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
-var hostnameRegexp = new RegExp('^https?://.+?/');
 
 function initMap() {
   var input = document.getElementById('pac-input');
+  var SAN_FRANCISCO_COORDINATES = {lat: 37.7827, lng: -122.4149}
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 37.7827, lng: -122.4149},
-    zoom: 15
+    center: SAN_FRANCISCO_COORDINATES,
+    zoom: 12
   });
 
   infoWindow = new google.maps.InfoWindow({
@@ -17,25 +16,43 @@ function initMap() {
 	places = new google.maps.places.PlacesService(map);
 	searchBox = new google.maps.places.SearchBox(input);
   onPlaceChanged();
+
+  document.getElementById('submit-button').onclick = function () {
+    google.maps.event.trigger(input, 'focus')
+    google.maps.event.trigger(input, 'keydown', { keyCode: 13 });
+  };
 }
 
 function onPlaceChanged() {
-  // Bias the SearchBox results towards current map's viewport.
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
 
   searchBox.addListener('places_changed', function() {
-    results = searchBox.getPlaces();
-    if (results.length == 0) { return; }
-    search(results);
+    var locations = searchBox.getPlaces();
+    if (locations.length == 0) { return; }
+    search(locations);
+    toggleHeader();
   });
 }
 
-function search(results) {
+function toggleHeader() {
+  var headerTag = document.querySelector('header');
+  var list = headerTag.classList
+  if (list.contains('collapse')) {
+    return;
+  } else {
+    $('.expand').toggleClass('collapse');
+  }
+}
+
+function search(locations) {
   var bounds = new google.maps.LatLngBounds();
 
-  results.forEach(function(place) {
+  locations.forEach(function(place) {
+    clearResults();
+    clearMarkers();
+
     if (place.geometry) {
       map.panTo(place.geometry.location);
       map.setZoom(18);
@@ -46,18 +63,15 @@ function search(results) {
       return;
     }
 
-    clearResults();
-    clearMarkers();
-
-    for (var i = 0; i < results.length; i++) {
+    for (var i = 0; i < locations.length; i++) {
       markers[i] = new google.maps.Marker({
-        position: results[i].geometry.location,
+        position: locations[i].geometry.location,
         animation: google.maps.Animation.DROP
       });
-      markers[i].placeResult = results[i];
+      markers[i].placeResult = locations[i];
       google.maps.event.addListener(markers[i], 'click', showInfoWindow);
-      setTimeout(dropMarker(i), i * 100);
-      addResult(results[i], i);
+      markers[i].setMap(map);
+      addResult(locations[i], i);
     }
   });
   map.fitBounds(bounds);
@@ -72,27 +86,20 @@ function clearMarkers() {
   markers = [];
 }
 
-function dropMarker(i) {
-  return function() {
-    markers[i].setMap(map);
-  };
-}
-
 function addResult(result, i) {
+  var table = document.getElementById('resultsTable')
   var results = document.getElementById('results');
-  // var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-  // var markerIcon = MARKER_PATH + markerLetter + '.png';
-
   var tr = document.createElement('tr');
   tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
+
+>>>>>>> gh-pages
   tr.onclick = function() {
     google.maps.event.trigger(markers[i], 'click');
   };
 
   var iconTd = document.createElement('td');
   var nameTd = document.createElement('td');
-  var icon = document.createElement('img');
-  // icon.src = markerIcon;
+  var icon = document.createElement('div');
   icon.setAttribute('class', 'placeIcon');
   icon.setAttribute('className', 'placeIcon');
   var name = document.createTextNode(result.name);
@@ -152,8 +159,6 @@ function buildIWContent(place) {
     document.getElementById('iw-rating-row').style.display = 'none';
   }
 
-  // The regexp isolates the first part of the URL (domain plus subdomain)
-  // to give a short URL for displaying in the info window.
   if (place.website) {
     var fullUrl = place.website;
     var website = hostnameRegexp.exec(place.website);

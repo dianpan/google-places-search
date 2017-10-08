@@ -1,5 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700);
 
+/* placeholder text style */
+::-webkit-input-placeholder { color: #C7C7CD; } /* WebKit, Blink, Edge */
+:-moz-placeholder { color: #C7C7CD; opacity: 1; } /* Mozilla Firefox 4 to 18 */
+::-moz-placeholder { color: #C7C7CD; opacity: 1; } /* Mozilla Firefox 19+ */
+:-ms-input-placeholder { color: #C7C7CD; } /* Internet Explorer 10-11 */
+::-ms-input-placeholder { color: #C7C7CD; } /* Microsoft Edge */
+
 h1 {
 	text-shadow: 1px 1px 10px rgba(black, .5);
   padding-bottom: 50px;
@@ -16,7 +23,7 @@ input {
 	vertical-align: top;
 }
 
-.wrapper {
+.search-wrapper {
 	text-align: center;
 	position: relative;
 	height: 80px;
